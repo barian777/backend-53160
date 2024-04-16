@@ -8,11 +8,11 @@ class ProductManager{
         this.path = filePath;
     }
 
-    async getProducts() {
+    async getProducts(limit) {
         try {
             const products = await fs.promises.readFile(this.path)
             const productsParsed = await JSON.parse(products)
-            return productsParsed
+            return limit === 0 ? productsParsed: productsParsed.slice(0, limit)
         } catch (error) {
             return "Se produjo un error."
         }
@@ -20,7 +20,7 @@ class ProductManager{
 
     async addProduct({title, description, price, thumbnail, code, stock}){
         try {
-            const products = await this.getProducts();
+            const products = await this.getProducts(0);
 
             const lastProductId = products.length > 0 ? products[products.length - 1].id : ProductManager.idGenerator;
             const id = lastProductId + 1;
@@ -50,8 +50,8 @@ class ProductManager{
 
     async getProductById(id){
         try {
-            const products = await this.getProducts();
-            const productById = products.find(element => element.id === id)
+            const products = await this.getProducts(0);
+            const productById = products.find(element => element.id === parseInt(id))
             return productById || "El ID de producto ingresado no existe."
         } catch (error) {
             return "Se produjo un error."
@@ -62,7 +62,7 @@ class ProductManager{
     
     async deleteProduct(id){
         try {
-            const products = await this.getProducts()
+            const products = await this.getProducts(0)
             const validationID = products.some(product => product.id === id)
             if(validationID ===true){
                 const filteredProducts = products.filter((product) => {
@@ -81,7 +81,7 @@ class ProductManager{
 /*El metodo update recibe como parametro el id del producto, la propiedad que desea actualizar y el valor nuevo */
     async updateProduct(id, prop, value){
         try {
-            const products = await this.getProducts()
+            const products = await this.getProducts(0)
             const productIndex = products.findIndex(product => product.id === id);
             if (productIndex !== -1){
                 const updatedProduct = {...products[productIndex]}
@@ -118,3 +118,4 @@ class ProductManager{
 
 //console.log(await listProduct.updateProduct(1007, "thumbnail","alfonso"));
 
+export default ProductManager;
