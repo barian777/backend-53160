@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1000,
+    "title": "producto prueba1000",
+    "description": "Este es un producto prueba",
+    "code": "asd13",
+    "price": 150,
+    "status": true,
+    "stock": 15,
+    "category": "male",
+    "thumbnail": "sin imagen"
+  },
+  {
+    "id": 1001,
+    "title": "producto prueba1001",
+    "description": "Este es un producto prueba",
+    "code": "asd12",
+    "price": 150,
+    "status": true,
+    "stock": 15,
+    "category": "famale",
+    "thumbnail": "sin imagen"
+  },
+  {
+    "id": 1002,
+    "title": "producto prueba1002",
+    "description": "Este es un producto prueba",
+    "code": "asd11",
+    "price": 150,
+    "status": true,
+    "stock": 15,
+    "category": "unisex",
+    "thumbnail": "sin imagen"
+  }
+]

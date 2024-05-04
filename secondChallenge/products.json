@@ -1,38 +1,24 @@
 [
   {
-    "title": "producto prueba",
-    "description": "Este es un producto prueba",
-    "price": 150,
-    "thumbnail": "sin imagen",
-    "code": "asd13",
-    "stock": 15,
-    "id": 1004
-  },
-  {
-    "title": "producto prueba",
-    "description": "Este es un producto prueba",
-    "price": 200,
-    "thumbnail": "sin imagen",
-    "code": "asd128",
+    "title": "loromachito",
+    "description": "asd",
+    "code": "asd3",
+    "price": 1000,
+    "status": true,
     "stock": 10,
-    "id": 1005
+    "category": "male",
+    "thumbnail": "alfons",
+    "id": 1001
   },
   {
-    "title": "producto prueba",
-    "description": "Este es un producto prueba",
-    "price": 200,
-    "thumbnail": "sin imagen",
+    "title": "loro",
+    "description": "asd",
     "code": "asd1",
+    "price": 1000,
+    "status": true,
     "stock": 10,
-    "id": 1006
-  },
-  {
-    "title": "producto prueba",
-    "description": "Este es un producto prueba",
-    "code": "asd19",
-    "stock": 10,
-    "id": 1007,
-    "price": 29,
-    "thumbnail": "alfonso"
+    "category": "male",
+    "thumbnail": "alfons",
+    "id": 1002
   }
 ]

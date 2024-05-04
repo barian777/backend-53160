@@ -18,7 +18,7 @@ class ProductManager{
         }
     }
 
-    async addProduct({title, description, price, thumbnail, code, stock}){
+    async addProduct({title, description, code, price, status, stock, category,thumbnail }){
         try {
             const products = await this.getProducts(0);
 
@@ -27,15 +27,17 @@ class ProductManager{
             
             let codeValidation = products.some(product => product.code === code)
             if(codeValidation === true){
-                console.log("El código de producto ingresado esta repetido. Porfavor ingrése un producto con otro código.");
+                console.error("El código de producto ingresado esta repetido. Porfavor ingrése un producto con otro código.");
             }else{
                 const newProduct= {
                     title,
                     description,
-                    price,
-                    thumbnail,
                     code,
+                    price,
+                    status,
                     stock,
+                    category,
+                    thumbnail,
                     id,
                 }
                 products.push(newProduct);
@@ -52,51 +54,91 @@ class ProductManager{
         try {
             const products = await this.getProducts(0);
             const productById = products.find(element => element.id === parseInt(id))
-            return productById || "El ID de producto ingresado no existe."
+            return productById || 1;
         } catch (error) {
             return "Se produjo un error."
-        }
-        
-        
+        }     
     }
     
     async deleteProduct(id){
         try {
             const products = await this.getProducts(0)
             const validationID = products.some(product => product.id === id)
-            if(validationID ===true){
-                const filteredProducts = products.filter((product) => {
-                    return product.id !== id
-                })
+            if(validationID){
+                const filteredProducts = products.filter((product) => {return product.id !== id})
                 await fs.promises.writeFile(this.path, JSON.stringify(filteredProducts, null, 2))
-                return "El producto se elimino de manera exitosa.";
+                return true;
             }else{
-                return "No se puede eliminar un producto inexistente."
+                return false;
             }
         } catch (error) {
             return "Se produjo un error."
         }
     }
 
+
 /*El metodo update recibe como parametro el id del producto, la propiedad que desea actualizar y el valor nuevo */
     async updateProduct(id, prop, value){
-        try {
+    try {
             const products = await this.getProducts(0)
-            const productIndex = products.findIndex(product => product.id === id);
-            if (productIndex !== -1){
-                const updatedProduct = {...products[productIndex]}
-                updatedProduct[prop] = value
-                products[productIndex] = updatedProduct
-                await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2))
-                return "El producto se actualizo exitosamente."
-            }else{
-                return "No se puede actualizar un producto inexistente."
+            const parseId = +id;
+            const index = products.findIndex(product => product.id === parseId);
+            if(prop === "price" || prop === "stock"){
+                if (index !== -1){
+                    const updatedProduct = {...products[index]}
+                    updatedProduct[prop] = +value
+                    products[index] = updatedProduct
+                    await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2))
+                    return true;
+                }else{
+                    return false;
+                }
+            } else{
+                if (index !== -1){
+                    const updatedProduct = {...products[index]}
+                    updatedProduct[prop] = value
+                    products[index] = updatedProduct
+                    await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2))
+                    return true;
+                }else{
+                    return false;
+                }
             }
         } catch (error) {
             return "Se produjo un error."
         }
     }
+    
+    /*async upPro(id, prop, value) {
+        try {
+            const selectProduct = await this.getProductById(+id);
+            if (!selectProduct) {
+                console.log("Producto no encontrado");
+                return false;
+            }
+    
+            const jsonContent = await fs.promises.readFile(this.path, 'utf-8');
+            const allproducts = JSON.parse(jsonContent);
+    
+            const index = allproducts.findIndex(product => product.id === selectProduct.id);
+            if (index === -1) {
+                console.log("Producto no encontrado en la lista de productos.");
+                return false;
+            }
+    
+            selectProduct[prop] = value;
+            allproducts[index] = selectProduct;
+    
+            await fs.promises.writeFile(this.path, JSON.stringify(allproducts, null, 2));
+            return true;
+        } catch (error) {
+            console.error("Error al actualizar el producto:", error);
+            return false;
+        }
+    }*/
+    
 }
+
 
     
 
@@ -112,10 +154,11 @@ class ProductManager{
     //     code:"asd192",
     //     stock:10,
     // });
-//console.log(await listProduct.getProductById(1007));
+//console.log(await listProduct.getProductById(1003));
 
 //console.log(await listProduct.deleteProduct(1007));
 
-//console.log(await listProduct.updateProduct(1007, "thumbnail","alfonso"));
+//const llamado = await listProduct.upPro(1004, "stock", 100);
+//console.log("llamado: " + llamado);
 
 export default ProductManager;
