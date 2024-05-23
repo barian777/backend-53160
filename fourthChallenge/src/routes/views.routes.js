@@ -11,6 +11,12 @@ router.get('/home', async(req, res) => {
     
 })
 
+router.get('/realtimeproducts', async (req,res) => {
+    const productsParsed = await manager.getProducts(0)
+    const listProduct = {listProducts : productsParsed}
+    res.render('realtimeproducts', listProduct )
+})
+
 router.get('/chat', (req, res) => {
     res.render('chat', {})
 })

@@ -1,0 +1,28 @@
+<div>
+    <h1 class="m-3">Listado de productos</h1>
+    <div class="container text-center">
+        <div class="row row-cols-auto"> 
+            {{#each listProducts}}
+                <div class="col">
+                    <div class="card" style="width: 10rem;">
+                        <div class="card-body">
+                        <h5 class="card-title">{{title}}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">{{category}}</h6>
+                        <p class="card-text">{{description}}</p>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+<section class="m-3" >
+    <h3>Nuevo producto</h3>
+
+    <form id="productForm">
+        <input class="form-control" type="text" id="name" name="name" placeholder="Nombre" style="width: 300px;"><br />
+        <input class="form-control" type="number" id="price" name="price" style="width: 100px;"><br />
+
+        <button type="submit" class="btn btn-success">Añadir producto</button>
+    </form>
+</section>
