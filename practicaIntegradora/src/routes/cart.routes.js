@@ -1,10 +1,10 @@
 import { Router } from "express";
-import CartManager from "../managers/cartManager.js";
+import managerCart from "../dao/managerCart.mdb.js"
 
 const manager = new CartManager("./ddbb/cartProducts.json");
 const routerCart = Router();
 
-routerCart.post("/api/carts", async (req, res) => {
+routerCart.post("/", async (req, res) => {
     try {
         await manager.createCart();
         res.status(200).send({ origin:"server1", payload : "Se creo un carrito con exito"})
@@ -14,7 +14,7 @@ routerCart.post("/api/carts", async (req, res) => {
     }
 })
 
-routerCart.post("/api/carts/:cid/product/:pid", async (req, res) => {
+routerCart.post("/:cid/product/:pid", async (req, res) => {
     try {
         const cartId = +req.params.cid;
         const productId= +req.params.pid;
@@ -26,7 +26,7 @@ routerCart.post("/api/carts/:cid/product/:pid", async (req, res) => {
     }
 })
 
-routerCart.get("/api/carts/:cid", async (req, res) => {
+routerCart.get("/:cid", async (req, res) => {
     try {
         const productsCart = await manager.getCartsById(+req.params.cid)
         console.log("Se obtuvo exitosamente los productos.");

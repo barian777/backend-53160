@@ -7,6 +7,7 @@ import initSocket from "./sockets.js";
 import productRoutes from "./routes/product.routes.js";
 import cartRoutes from "./routes/cart.routes.js";
 import viewsRoutes from "./routes/views.routes.js";
+import usersRoutes from "./routes/users.routes.js";
 
 const app = express();
 
@@ -26,8 +27,11 @@ const expressInstance = app.listen(config.PORT, async () => {
     app.use('/', viewsRoutes)
     app.use('/static', express.static(`${config.DIRNAME}/public`))
     app.use('/api/products',productRoutes);
-    app.use(cartRoutes);
+    app.use('/api/carts', cartRoutes);
+    app.use('/api/user', usersRoutes);
+    
     console.log(config.DIRNAME);
+
     console.log(`Server running on port: ${config.PORT}`);
 })
 

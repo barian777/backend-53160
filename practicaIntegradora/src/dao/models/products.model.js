@@ -1,5 +1,5 @@
-import { text } from 'express';
 import mongoose from 'mongoose';
+import mongoosePag from 'mongoose-paginate-v2';
 
 mongoose.pluralize(null);
 
@@ -10,11 +10,12 @@ const schema = new mongoose.Schema({
     description: { type: String, required: false },
     code: { type: String, required: true },
     price: { type: Number, required: true },
-    status: {type: Boolean, required: true},
     stock: { type: Number, required: true },
-    category: {type: String, required: true},
+    category: {type: String, enum: ['custom', 'special', 'standard'], default: 'standard'},
     thumbnail: { type: String, required: false }
 });
+
+schema.plugin(mongoosePag)
 
 const model = mongoose.model(collection, schema);
 

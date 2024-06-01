@@ -49,7 +49,7 @@
             title: 'Coderhouse',
             input: 'text',
             text: 'Usuario',
-            inputValidator: value => { return !value && 'Se debe indicar usuario' },
+            inputValidator: value => { return !value && 'Indique el nombre de usuario' },
             allowOutsideClick: false
         });
 
@@ -57,11 +57,11 @@
         console.log(user);
     }
 
-    chatBox.addEventListener('keyup', (evt) => {
-        if (evt.key === 'Enter') sendMessage()
+    chatBox.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') sendMessage()
     });
 
-    sendButton.addEventListener('click', (evt) => {
+    sendButton.addEventListener('click', (e) => {
         sendMessage();
     });
 

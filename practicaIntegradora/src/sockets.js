@@ -6,6 +6,7 @@ const initSocket = (httpServer) => {
     const io = new Server(httpServer);
 
     io.on('connection', client => {
+        
         client.emit('chatLog', messages);
         console.log(`Cliente conectado, id ${client.id} desde ${client.handshake.address}`);
     
