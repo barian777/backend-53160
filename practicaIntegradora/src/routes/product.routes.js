@@ -1,14 +1,27 @@
 import { Router } from "express";
 import { uploader } from "../uploader.js";
 import ManagerProducts from "../dao/managerProduct.mdb.js"
+import productsModel from "../dao/models/products.model.js"
 
 const router = Router();
 
 const manager = new ManagerProducts();
 
 router.get('/', async (req, res) => {
+    const limit = isNaN(+req.query.limit) ? 8 : +req.query.limit;
+    const page = isNaN(+req.query.page) ? 1 : +req.query.page;
+    const key = req.query.key || null ;
+    const value = req.query.value || null;
+    const order = req.query.order || 'asc';
+    let sort;
+    if (order === 'desc') {
+        sort = { [key]: -1 };
+    } else {
+        sort = { [key]: 1 };
+    }
+
     try {
-        const listProducts = await manager.getAll()
+        const listProducts = await productsModel.paginate({[key]:value},{page:page, limit:limit, sort })
         res.status(200).send({origin : "serverAtlas", payload : listProducts})
     } catch (error) {
         console.error("Error al intentar obtener los productos:", error);
@@ -17,8 +30,9 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:id', async (res,req) => {
+    const id = req.params.id
     try {
-        const productSelect = await manager.getById(req.params.id)
+        const productSelect = await manager.getById(id)
         res.status(200).send({origin : "serverAtlas", payload : productSelect})
     } catch (error) {
         console.error("Error al intentar obtener el producto:", error);

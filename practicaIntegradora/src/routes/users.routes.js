@@ -28,7 +28,6 @@ router.get('/role/:irol', async (req, res)=> {
 
 })
 
-// router.get('/aggregate/:role', async (req, res) => {
 //     try {
 //         if (req.params.role === 'admin' || req.params.role === 'premium' || req.params.role === 'user') {
 //             const match = { role: req.params.role };

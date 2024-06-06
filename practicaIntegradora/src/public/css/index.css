@@ -5,8 +5,13 @@ body {
 
 .a3 {
     color: #0d3e00;
+    width: 6.25rem;
 }
 
 .a3:hover {
     color: #00ce29;
+}
+
+.list-group-item{
+    width: 18.75rem;
 }

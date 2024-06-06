@@ -20,7 +20,12 @@ const expressInstance = app.listen(config.PORT, async () => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     
-    app.engine('handlebars', handlebars.engine());
+    app.engine('handlebars', handlebars.engine({
+        runtimeOptions: {
+            allowProtoPropertiesByDefault: true,
+            allowProtoMethodsByDefault: true,
+        }
+    }));
     app.set('views', `${config.DIRNAME}/views`);
     app.set('view engine', 'handlebars');
 
@@ -30,8 +35,6 @@ const expressInstance = app.listen(config.PORT, async () => {
     app.use('/api/carts', cartRoutes);
     app.use('/api/user', usersRoutes);
     
-    console.log(config.DIRNAME);
-
     console.log(`Server running on port: ${config.PORT}`);
 })
 

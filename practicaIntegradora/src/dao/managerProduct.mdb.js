@@ -6,7 +6,7 @@ class ProductsManager {
 
     getAll = async (limit = 0) => {
         try {
-            return limit === 0 ? await productsModel.find().lean(): await productsModel.find().limit(limit).lean();
+            return limit === 0 ? await productsModel.find().limit(10).lean(): await productsModel.find().limit(limit).lean();
         } catch (err) {
             return err.message;
         };
@@ -14,7 +14,7 @@ class ProductsManager {
 
     getById = async (id) => {
         try {
-            return await productsModel.findById(id).lean();
+            return await productsModel.findOne({_id: id})
         } catch (err) {
             return err.message;
         };

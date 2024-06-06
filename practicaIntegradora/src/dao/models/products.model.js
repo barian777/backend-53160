@@ -10,7 +10,7 @@ const schema = new mongoose.Schema({
     description: { type: String, required: false },
     code: { type: String, required: true },
     price: { type: Number, required: true },
-    stock: { type: Number, required: true },
+    stock: { type: Number, required: true , index:true},
     category: {type: String, enum: ['custom', 'special', 'standard'], default: 'standard'},
     thumbnail: { type: String, required: false }
 });
