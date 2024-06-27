@@ -26,7 +26,23 @@ class UsersManager {
         } catch (error) {
             return error.message;
         }
-    }
+    };
+    
+    getByEmailAndPassword = async (email, password) => {
+        try {
+          return await User.findOne({ email, password }).lean();
+        } catch (error) {
+          return error.message;
+        }
+    };
+    
+    getOne = async (filter) => {
+        try {
+            return await usersModel.findOne(filter).lean();
+        } catch (err) {
+            return err.message;
+        };
+    };
 
     add = async (newData) => {
         try {
